@@ -4,11 +4,16 @@ header {
   padding-bottom: 43px;
 }
 
+#container-profit {
+	margin: 0 auto;
+}
 
 .recommendation {
   display: inline-block;
   width: 40px;
 };
+
+
 
 //
 // Input groups
