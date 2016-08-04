@@ -1,1 +1,9 @@
 /* Empty. Add your own CSS if you like */
+
+header {
+  padding-bottom: 43px;
+}
+
+.recommendation {
+  margin-top: 50px;
+}
