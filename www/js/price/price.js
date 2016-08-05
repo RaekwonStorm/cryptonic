@@ -33,8 +33,8 @@ cryptonic.factory('PriceFactory', function ($http, $resource, $q) {
       });
   }
 
-  PriceFactory.isPositive = function (numStr) {
-    return (parseFloat(numStr) > 0)
+  PriceFactory.isNegative = function (numStr) {
+    return (parseFloat(numStr) < 0)
   }
 
   PriceFactory.convertUsdToBtc = function () {

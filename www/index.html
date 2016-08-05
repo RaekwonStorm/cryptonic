@@ -40,12 +40,12 @@
     </header>
     <div class="card" ng-controller="PriceCtrl">
         <div class="item item-divider">
-            BTC: {{ btcPrice }}  {{btcPriceChange}}  {{btcPriceChangePct}}
+            BTC: {{ btcPrice }}  <span ng-class="{negative: isNegative(btcPriceChangePct), positive: !isNegative(btcPriceChangePct)}">{{btcPriceChange}}  {{btcPriceChangePct}}</span>
         </div>
         <div class="item item-text-wrap">
             <div id="container-bitcoin" style="height: 200px; min-width: 310px"></div>
         </div>
-        <i ng-cloak>ETH: {{ ethPrice }} {{ethPriceChange}} {{ethPriceChangePct}}</i>
+        <i ng-cloak>ETH: {{ ethPrice }} <span ng-class="{negative: isNegative(ethPriceChangePct), positive: !isNegative(ethPriceChangePct)}">{{ethPriceChange}} {{ethPriceChangePct}}</span></i>
     </div>
     <div class='card'>
         <div class='item item-divider'>
