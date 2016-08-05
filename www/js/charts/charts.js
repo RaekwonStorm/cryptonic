@@ -64,6 +64,10 @@ $(function() {
             }
         },
 
+        exporting: {
+            enabled: false
+        },
+
         credits: {
             enabled: false
         },
@@ -105,71 +109,78 @@ $(function() {
 
     }, 2000);
 
-    $.getJSON('https://api.coindesk.com/v1/bpi/historical/close.json', 
-        function(data){
+    $.getJSON('https://api.coindesk.com/v1/bpi/historical/close.json',
+        function(data) {
 
 
 
-        data = data.bpi;
+            data = data.bpi;
 
-                var data_arr = [];
+            var data_arr_bitcoin = [];
 
-                for(var key in data){
-                    var index = key.split('-');
-                    index = new Date(index[0], index[1]-1, index[2]);
-                    index = index.getTime();
-                    data_arr.push([index, data[key]])
-                }
+            for (var key in data) {
+                var index = key.split('-');
+                index = new Date(index[0], index[1] - 1, index[2]);
+                index = index.getTime();
+                data_arr_bitcoin.push([index, data[key]])
+            }
 
-                console.log(data_arr);
-        // Create the price chart
-        $('#container-bitcoin').highcharts('StockChart', {
+            // Create the price chart
+            var priceGraph = function(id, datafile) {
+
+                $(id).highcharts('StockChart', {
 
 
-            rangeSelector: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            scrollbar: {
-                enabled: false
-            },
-            navigator: {
-                enabled: false
-            },
-
-            navigation: {
-                buttonOptions: {
-                    enabled: false
-                }
-            },
-
-            title: {
-                enabled: false
-            },
-
-            series: [{
-                name: 'BTC Price',
-                data: data_arr,
-                type: 'area',
-                threshold: null,
-                tooltip: {
-                    valueDecimals: 2
-                },
-                fillColor: {
-                    linearGradient: {
-                        x1: 0,
-                        y1: 0,
-                        x2: 0,
-                        y2: 1
+                    rangeSelector: {
+                        enabled: false
                     },
-                    stops: [
-                        [0, Highcharts.getOptions().colors[0]],
-                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                    ]
-                }
-            }]
-        });
-    })
+                    credits: {
+                        enabled: false
+                    },
+                    scrollbar: {
+                        enabled: false
+                    },
+                    navigator: {
+                        enabled: false
+                    },
+
+                    navigation: {
+                        buttonOptions: {
+                            enabled: false
+                        }
+                    },
+
+                    title: {
+                        enabled: false
+                    },
+
+                    series: [{
+                        name: 'BTC Price',
+                        data: datafile,
+                        type: 'area',
+                        threshold: null,
+                        tooltip: {
+                            valueDecimals: 2
+                        },
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
+                        }
+                    }]
+                });
+            }
+
+            priceGraph('#container-bitcoin', data_arr_bitcoin);
+            priceGraph('#container-etherreum', data_arr_ethereum);
+
+        })
+
 });
