@@ -41,7 +41,7 @@
     <ion-scroll zooming="true" direction="y" style="height: 100vh">
         <div class="card" ng-controller="PriceCtrl">
             <div class="item item-divider">
-                BTC: {{ btcPrice }} {{btcPriceChange}} {{btcPriceChangePct}}
+                BTC: {{ btcPrice }} <span ng-class="{negative: isNegative(btcPriceChangePct), positive: !isNegative(btcPriceChangePct)}">{{btcPriceChange}}  {{btcPriceChangePct}}</span>
             </div>
             <div class="item item-text-wrap">
                 <div id="container-bitcoin" style="height: 200px; min-width: 260px"></div>
@@ -49,7 +49,7 @@
         </div>
         <div class="card" ng-controller="PriceCtrl">
             <div class="item item-divider">
-                ETH: {{ ethPrice }} {{ethPriceChange}} {{ethPriceChangePct}}
+                ETH: {{ ethPrice }} <span ng-class="{negative: isNegative(ethPriceChangePct), positive: !isNegative(ethPriceChangePct)}">{{ethPriceChange}} {{ethPriceChangePct}}</span></i>
             </div>
             <div class="item item-text-wrap">
                 <div id="container-bitcoin" style="height: 200px; min-width: 260px"></div>

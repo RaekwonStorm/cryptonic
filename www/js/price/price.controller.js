@@ -2,27 +2,38 @@ cryptonic.controller('PriceCtrl', function ($scope, PriceFactory) {
 
   PriceFactory.getBtc()
     .then(function (price) {
-      // console.log(price)
+      // gets current btc price, must use $scope.$apply since the api call used jquery and not angular
       $scope.$apply(function () {
-        $scope.btcPrice = "$"+price.market_price_usd.toFixed(2);
+        $scope.btcPrice = "$"+price.market_price_usd.toFixed(2); // formats with $ and 2 decimal places.
       })
     })
     .then(function () {
       PriceFactory.trailingMonthBtc()
       .then(function (priceHistory) {
+
+        // gets trailing month price data, saves most recent as yesterdayClose
         var yesterdayClose = priceHistory[priceHistory.length-1];
+
+        // simple calculations to get price change %/$ and formatting
         $scope.btcPriceChangePct = ((parseFloat($scope.btcPrice.substring(1))/yesterdayClose - 1) * 100).toFixed(2) + '%'
-        $scope.btcPriceChange = '$'+(parseFloat($scope.btcPrice.substring(1)) - yesterdayClose).toFixed(2)
-        console.log($scope.btcPriceChange)
+        $scope.btcPriceChange = (parseFloat($scope.btcPrice.substring(1)) - yesterdayClose).toFixed(2)
       })
     })
     .catch(console.error);
 
 
   PriceFactory.getEth()
-    .then(function (price) {
-      $scope.ethPrice = "$" +price.toFixed(2);
+    .then(function (ethData) {
+      var ethPrice = ethData.price.usd
+      var priceChangePct = parseFloat(ethData.change);
+      var priceChange = ethPrice - (ethPrice/((priceChangePct/100)+1))
+
+      $scope.ethPrice = "$"+ethPrice.toFixed(2);
+      $scope.ethPriceChangePct = ethData.change+'%'
+      $scope.ethPriceChange = priceChange.toFixed(2);
     })
     .catch(console.error);
+
+  $scope.isNegative = PriceFactory.isNegative;
 
 });

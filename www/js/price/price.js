@@ -18,7 +18,7 @@ cryptonic.factory('PriceFactory', function ($http, $resource, $q) {
     return $http.get('https://coinmarketcap-nexuist.rhcloud.com/api/eth')
       .then(function (prices) {
         ethData = prices;
-        return ethData.data.price.usd;
+        return ethData.data;
       })
   }
 
@@ -33,8 +33,8 @@ cryptonic.factory('PriceFactory', function ($http, $resource, $q) {
       });
   }
 
-  PriceFactory.isPositive = function (numStr) {
-    return (parseFloat(numStr) > 0)
+  PriceFactory.isNegative = function (numStr) {
+    return (parseFloat(numStr) < 0)
   }
 
   PriceFactory.convertUsdToBtc = function () {
