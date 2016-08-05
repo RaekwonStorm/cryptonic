@@ -4,6 +4,15 @@ header {
   padding-bottom: 43px;
 }
 
+.negative {
+  color: red;
+  float: right;
+}
+
+.positive {
+  color: green;
+  float: right;
+}
 
 #container-profit {
 	margin: 0 auto;

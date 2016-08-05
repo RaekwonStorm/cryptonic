@@ -16,7 +16,7 @@ cryptonic.controller('PriceCtrl', function ($scope, PriceFactory) {
 
         // simple calculations to get price change %/$ and formatting
         $scope.btcPriceChangePct = ((parseFloat($scope.btcPrice.substring(1))/yesterdayClose - 1) * 100).toFixed(2) + '%'
-        $scope.btcPriceChange = '$'+(parseFloat($scope.btcPrice.substring(1)) - yesterdayClose).toFixed(2)
+        $scope.btcPriceChange = (parseFloat($scope.btcPrice.substring(1)) - yesterdayClose).toFixed(2)
       })
     })
     .catch(console.error);
@@ -28,10 +28,12 @@ cryptonic.controller('PriceCtrl', function ($scope, PriceFactory) {
       var priceChangePct = parseFloat(ethData.change);
       var priceChange = ethPrice - (ethPrice/((priceChangePct/100)+1))
 
-      $scope.ethPrice = "$" +ethPrice.toFixed(2);
+      $scope.ethPrice = "$"+ethPrice.toFixed(2);
       $scope.ethPriceChangePct = ethData.change+'%'
-      $scope.ethPriceChange = "$"+priceChange.toFixed(2);
+      $scope.ethPriceChange = priceChange.toFixed(2);
     })
     .catch(console.error);
+
+  $scope.isNegative = PriceFactory.isNegative;
 
 });
