@@ -177,9 +177,13 @@ $(function() {
                     }]
                 });
             }
+            $.get("http://localhost:3000/scraper", function(data){
+                console.log(3, data);
+                priceGraph('#container-ethereum', data);
+            });
 
             priceGraph('#container-bitcoin', data_arr_bitcoin);
-            priceGraph('#container-etherreum', data_arr_ethereum);
+            
 
         })
 
