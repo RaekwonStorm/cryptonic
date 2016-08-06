@@ -5,7 +5,6 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 router.get('/scraper', function(req, res) {
-    console.log('hello');
     var url = 'https://www.coingecko.com/en/price_charts/ethereum/usd';
     var ETH_ARRAY = [];
 
