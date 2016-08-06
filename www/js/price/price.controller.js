@@ -34,7 +34,6 @@ cryptonic.controller('PriceCtrl', function ($scope, PriceFactory) {
         if ($scope.ethPrice && $scope.btcPrice) {
         var homeCurrency = 100
         $scope.strategy = PriceFactory.strategy(homeCurrency);
-        console.log($scope.strategy)
         }
       })
     })
