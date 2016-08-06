@@ -19,7 +19,7 @@
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
     <script src="lib/ionic/js/angular/angular-resource.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -40,46 +40,46 @@
     </header>
     <ion-scroll zooming="true" direction="y" style="height: 100vh">
         <div class="card" ng-controller="PriceCtrl">
-            <div class="item item-divider">
-                BTC: {{ btcPrice }} <span ng-class="{negative: isNegative(btcPriceChangePct), positive: !isNegative(btcPriceChangePct)}">{{btcPriceChange}}  {{btcPriceChangePct}}</span>
+            <div class="item item-divider" ng-cloak>
+                BTC: {{ btcPrice }}<ion-spinner ng-hide="btcPrice"></ion-spinner><span ng-class="{negative: isNegative(btcPriceChangePct), positive: !isNegative(btcPriceChangePct)}"> <ion-spinner ng-hide="btcPriceChange"></ion-spinner>{{btcPriceChange}}  {{btcPriceChangePct}}</span>
             </div>
             <div class="item item-text-wrap">
-                <div id="container-bitcoin" style="height: 200px; min-width: 260px"></div>
+                <div id="container-bitcoin" style="height: 200px; min-width: 260px"><ion-spinner ng-hide="btcPrice" style="margin: 0 auto"></ion-spinner></div>
             </div>
         </div>
         <div class="card" ng-controller="PriceCtrl">
-            <div class="item item-divider">
-                ETH: {{ ethPrice }} <span ng-class="{negative: isNegative(ethPriceChangePct), positive: !isNegative(ethPriceChangePct)}">{{ethPriceChange}} {{ethPriceChangePct}}</span></i>
+            <div class="item item-divider" ng-cloak>
+                ETH: {{ ethPrice }} <ion-spinner ng-hide="ethPrice"></ion-spinner><span ng-class="{negative: isNegative(ethPriceChangePct), positive: !isNegative(ethPriceChangePct)}"> <ion-spinner ng-hide="ethPriceChange"></ion-spinner>{{ethPriceChange}} {{ethPriceChangePct}}</span></i>
             </div>
             <div class="item item-text-wrap">
                 <div id="container-bitcoin" style="height: 200px; min-width: 260px"></div>
             </div>
         </div>
-        <div class='card'>
+        <div class='card' ng-controller="PriceCtrl">
             <div class='item item-divider'>
                 Algo trader tool
             </div>
             <div class='item item-text-wrap'>
-                Based on an investment of $ you can make:
+                Based on an investment of $100 you can make {{strategy.profit}}
             </div>
             <!-- add the cool chart -->
             <div id="container-profit" style="width: 100%; min-height: 200px; float: left">
             </div>
         </div>
-        <div class='card'>
+        <div class='card' ng-controller="PriceCtrl">
             <div class='item item-divider'>
                 How to Execute This Trade:
             </div>
             <div class='item item-text-wrap'>
                 <ol>
                     <li>
-                        1. Buy ____ in BTC
+                        1. Buy {{strategy.step1}}
                     </li>
                     <li>
-                        2. ???
+                        2. Exchange {{strategy.step1}} for {{strategy.step2}}
                     </li>
                     <li>
-                        3. Profit
+                        3. Sell {{strategy.step2}} for {{strategy.profit}}!
                     </li>
                 </ol>
             </div>

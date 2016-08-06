@@ -51,6 +51,35 @@ cryptonic.factory('PriceFactory', function ($http, $resource, $q) {
 
   PriceFactory.convertBtcToEth = function () {}
 
+  PriceFactory.strategy = function (homeCurrency) {
+
+    var homeToBtc = (homeCurrency/btcData.market_price_usd);
+    var btcToEth = (homeToBtc/ethData.data.price.btc);
+    var ethToDollar = (btcToEth * ethData.data.price.usd);
+
+    var homeToEth = (homeCurrency/ethData.data.price.usd);
+    var ethToBtc = (homeToEth * ethData.data.price.btc);
+    var btcToDollar = (ethToBtc*btcData.market_price_usd);
+
+    if (ethToDollar > 0 && ethToDollar > btcToDollar) {
+      return {strategy: 'Btc', profit: PriceFactory.formatUsd(ethToDollar), step1: PriceFactory.formatBtc(homeToBtc), step2: PriceFactory.formatEth(btcToEth)};
+    } else if (btcToDollar > 0 && btcToDollar > ethToDollar) {
+      return {strategy: 'Eth', profit: PriceFactory.formatUsd(btcToDollar), step1: PriceFactory.formatEth(homeToEth), step2: PriceFactory.formatBtc(ethToBtc)};
+    } else return undefined;
+  }
+
+  PriceFactory.formatEth = function (currency) {
+    return "Ξ"+currency.toFixed(2);
+  }
+
+  PriceFactory.formatBtc = function (currency) {
+    return "฿"+currency.toFixed(6);
+  }
+
+  PriceFactory.formatUsd = function (currency) {
+    return "$"+currency.toFixed(2);
+  }
+
   return PriceFactory;
 
 });
