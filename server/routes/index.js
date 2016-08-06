@@ -3,7 +3,6 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var cheerio = require('cheerio');
-var _ = require('lodash/core')
 
 router.get('/scraper', function(req, res) {
     console.log('hello');
