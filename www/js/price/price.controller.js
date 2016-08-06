@@ -19,18 +19,24 @@ cryptonic.controller('PriceCtrl', function ($scope, PriceFactory) {
         $scope.btcPriceChange = (parseFloat($scope.btcPrice.substring(1)) - yesterdayClose).toFixed(2)
       })
     })
-    .catch(console.error);
+    .then(function () {
+      PriceFactory.getEth()
+      .then(function (ethData) {
+        var ethPrice = ethData.price.usd
+        var priceChangePct = parseFloat(ethData.change);
+        var priceChange = ethPrice - (ethPrice/((priceChangePct/100)+1))
 
-
-  PriceFactory.getEth()
-    .then(function (ethData) {
-      var ethPrice = ethData.price.usd
-      var priceChangePct = parseFloat(ethData.change);
-      var priceChange = ethPrice - (ethPrice/((priceChangePct/100)+1))
-
-      $scope.ethPrice = "$"+ethPrice.toFixed(2);
-      $scope.ethPriceChangePct = ethData.change+'%'
-      $scope.ethPriceChange = priceChange.toFixed(2);
+        $scope.ethPrice = "$"+ethPrice.toFixed(2);
+        $scope.ethPriceChangePct = ethData.change+'%'
+        $scope.ethPriceChange = priceChange.toFixed(2);
+      })
+      .then(function () {
+        if ($scope.ethPrice && $scope.btcPrice) {
+        var homeCurrency = 100
+        $scope.strategy = PriceFactory.strategy(homeCurrency);
+        console.log($scope.strategy)
+        }
+      })
     })
     .catch(console.error);
 
