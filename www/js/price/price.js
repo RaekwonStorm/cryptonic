@@ -69,7 +69,7 @@ cryptonic.factory('PriceFactory', function ($http, $resource, $q) {
   }
 
   PriceFactory.formatEth = function (currency) {
-    return "Ξ"+currency.toFixed(2);
+    return "Ξ "+currency.toFixed(2);
   }
 
   PriceFactory.formatBtc = function (currency) {
